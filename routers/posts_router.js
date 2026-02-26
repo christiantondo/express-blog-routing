@@ -9,7 +9,8 @@ router.get('/', (req, res) => {
 
     if (req.query.tags) {
         results = posts.filter(post =>
-            post.tags.includes(req.query.tags));
+            post.tags.includes(req.query.tags)
+        );
     }
 
     res.json(results)
@@ -17,7 +18,22 @@ router.get('/', (req, res) => {
 
 // Show (cRud)
 router.get('/:id', (req, res) => {
-    res.send(`You requested to SHOW the post with id: ${req.params.id}`)
+
+    const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+        return res.status(400).json({ error: 'User error', message: 'Invalid id' })
+    }
+
+    const result = posts.find(post =>
+        post.id == id
+    );
+
+    if (!result) {
+        return res.status(404).json({ error: 'Not Found', message: 'Item not found' })
+    }
+
+    return res.json(result);
 });
 
 // Store (Crud)
