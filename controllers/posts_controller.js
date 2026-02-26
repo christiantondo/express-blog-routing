@@ -61,20 +61,21 @@ const store = (req, res) => {
 }
 
 const update = (req, res) => {
+    console.log(`You requested to UPDATE (complete) the post with id: ${req.params.id}`, req.body)
     res.send(`You requested to UPDATE (complete) the post with id: ${req.params.id}`)
 }
 
 const modify = (req, res) => {
+    console.log(`You requested to MODIFY (partial) the post with id: ${req.params.id}`, req.body)
     res.send(`You requested to MODIFY (partial) the post with id: ${req.params.id}`)
 }
 
-const properties = {
+
+module.exports = {
     index,
     show,
     destroy,
     store,
     update,
     modify
-};
-
-module.exports = properties
+}
