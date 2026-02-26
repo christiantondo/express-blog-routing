@@ -4,7 +4,15 @@ const posts = require('../data/posts_data')
 
 // Index (cRud)
 router.get('/', (req, res) => {
-    res.json(posts)
+
+    let results = posts;
+
+    if (req.query.tags) {
+        results = posts.filter(post =>
+            post.tags.includes(req.query.tags));
+    }
+
+    res.json(results)
 });
 
 // Show (cRud)
