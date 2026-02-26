@@ -14,7 +14,7 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-    s
+
     const id = Number(req.params.id);
 
     if (isNaN(id)) {
@@ -81,8 +81,31 @@ const store = (req, res) => {
 }
 
 const update = (req, res) => {
-    console.log(`You requested to UPDATE (complete) the post with id: ${req.params.id}`, req.body)
-    res.send(`You requested to UPDATE (complete) the post with id: ${req.params.id}`)
+
+    const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+        return res.status(400).json({ error: 'User error', message: 'Invalid id' })
+    }
+
+    const result = posts.find(post =>
+        post.id == id
+    );
+
+    if (!result) {
+        return res.status(404).json({ error: 'Not Found', message: 'Item not found' })
+    }
+
+    result.title = req.body.title;
+    result.content = req.body.content;
+    result.image = req.body.image;
+    result.tags = req.body.tags;
+
+    console.log(`Post with id: ${id} updated with new data`, {
+        result
+    });
+
+    return res.json(result);
 }
 
 const modify = (req, res) => {
