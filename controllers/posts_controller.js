@@ -56,8 +56,25 @@ const destroy = (req, res) => {
 }
 
 const store = (req, res) => {
-    console.log(`You requested to CREATE a new post`, req.body)
-    res.send(`You requested to CREATE a new post`)
+
+    const newPost = {
+        id: posts.length > 0
+            ? Math.max(...posts.map(post => post.id)) + 1
+            : 1,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    };
+
+    posts.push(newPost);
+
+    console.log('New Post created and added to posts list', {
+        newPost,
+        totalPosts: posts.length
+    });
+
+    return res.status(201).json(newPost);
 }
 
 const update = (req, res) => {
