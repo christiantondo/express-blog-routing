@@ -14,7 +14,7 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-
+    s
     const id = Number(req.params.id);
 
     if (isNaN(id)) {
@@ -50,7 +50,10 @@ const destroy = (req, res) => {
 
     posts.splice(posts.indexOf(result), 1);
 
-    console.log(`Post ${id} deleted`, posts);
+    console.log(`Post ${id} deleted`, {
+        posts,
+        totalPosts: posts.length
+    });
 
     return res.sendStatus(204);
 }
