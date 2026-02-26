@@ -53,7 +53,26 @@ router.patch('/:id', (req, res) => {
 
 // Destroy (cruD)
 router.delete('/:id', (req, res) => {
-    res.send(`You requested to DELETE the post with id: ${req.params.id}`)
+
+    const id = Number(req.params.id);
+
+    if (isNaN(id)) {
+        return res.status(400).json({ error: 'User error', message: 'Invalid id' })
+    }
+
+    const result = posts.find(post =>
+        post.id == id
+    );
+
+    if (!result) {
+        return res.status(404).json({ error: 'Not Found', message: 'Item not found' })
+    }
+
+    posts.splice(posts.indexOf(result), 1);
+
+    console.log(`Post ${id} deleted`, posts);
+
+    return res.sendStatus(204);
 });
 
 module.exports = router;
