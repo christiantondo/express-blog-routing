@@ -7,18 +7,12 @@ router.get('/:id', postsController.show);
 router.delete('/:id', postsController.destroy);
 
 // Store (Crud)
-router.post('/', (req, res) => {
-    res.send(`You requested to CREATE a new post`)
-});
+router.post('/', postsController.store);
 
 // Update (crUd)
-router.put('/:id', (req, res) => {
-    res.send(`You requested to UPDATE (complete) the post with id: ${req.params.id}`)
-});
+router.put('/:id', postsController.update);
 
 // Modify (crUd)
-router.patch('/:id', (req, res) => {
-    res.send(`You requested to MODIFY (partial) the post with id: ${req.params.id}`)
-});
+router.patch('/:id', postsController.modify);
 
 module.exports = router;

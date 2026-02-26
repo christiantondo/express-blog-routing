@@ -55,10 +55,26 @@ const destroy = (req, res) => {
     return res.sendStatus(204);
 }
 
+const store = (req, res) => {
+    console.log(`You requested to CREATE a new post`, req.body)
+    res.send(`You requested to CREATE a new post`)
+}
+
+const update = (req, res) => {
+    res.send(`You requested to UPDATE (complete) the post with id: ${req.params.id}`)
+}
+
+const modify = (req, res) => {
+    res.send(`You requested to MODIFY (partial) the post with id: ${req.params.id}`)
+}
+
 const properties = {
     index,
     show,
-    destroy
+    destroy,
+    store,
+    update,
+    modify
 };
 
 module.exports = properties
